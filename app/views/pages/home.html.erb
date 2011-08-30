@@ -1,0 +1,93 @@
+<% fclass = (@fb_complete)?"none":"block" %>
+<% tclass = (@twt_complete)?"none":"block" %>
+<style>
+.box{
+	border:1px solid #cccccc;
+	float:left;
+	padding:5px;
+	margin:5px;
+}
+.big{
+	width:200px;
+	min-height:200px;
+}
+</style>
+<p>Welcome <%= @name %> </p>
+<div class="box big" style="width:500px;"> 
+<h1 style="align:center;"> Step 1 </h1>
+<div style="float:left;">
+<div style="margin-left:20px;">
+<%= link_to "Fetch Facebook Data", "#", {:id=>"fetch-facebook", :class => "fetch-fb"} %>
+<div id="facebook-fetch-progress" style="display:<%=fclass%>;float:left;"><img src="/images/ajax-loader.gif"></div>
+</div>
+<div id="fb_status" class="box" >
+<p>Total Users: 0<p>Completely Fetched:0</p><p> Total Statuses Fetched:0</p>
+ </div>
+</div>
+<div style="float:left">
+<div style="margin-left:20px;">
+<%= link_to "Fetch Twitter Data", "#", {:class => "fetch-twt"} %>
+<div id="twitter-fetch-progress" style="display:<%=tclass%>;float:left;"><img src="/images/ajax-loader.gif"></div>
+</div>
+<div class="box" id="twt_status" > 
+<p>Total Users: 0<p>Completely Fetched:0</p><p> Total Statuses Fetched:0</p>
+</div>
+</div>
+</div>
+<div class="box">
+<h1> Step 2 </h1>
+<%= link_to "Caculate Twitter Scores", "/scores/twitter" %> <br />
+<%= link_to "Caculate Facebook Scores", "/scores/twitter" %> <br />
+</div>
+<div class="box">
+<h1> Step 3 </h1>
+<%= link_to "View Scores", "/scores/" %> <br />
+</div>
+<script type="text/javascript">
+	$(function(){
+		$(".fetch-fb").click(function(){
+			$("#facebook-fetch-progress").show();	
+			$.ajax({
+				 type: "POST",
+				 url: "/fetch/facebook"
+			 });
+		});
+		$(".fetch-twt").click(function(){
+			$("#twitter-fetch-progress").show();	
+			$.ajax({
+				 type: "POST",
+				 url: "/fetch/twitter"
+			 });
+		});
+	});
+function fb_status(){
+
+
+	$.ajax({
+		 type: "GET",
+		 url: "/status/facebook",
+		 success: function(msg){
+			if(msg.total == msg.fetched){
+//				$("#facebook-fetch-progress").html("<img src='/images/check.jpg'>");
+			}
+			text = "<p>Total Users:"+msg.total+"</p><p>Completely Fetched:"+msg.fetched+"</p><p> Total Statuses Fetched: "+msg.statuses+"</p>"
+			$("#fb_status").html(text);
+		 }
+	 });
+
+	$.ajax({
+		 type: "GET",
+		 url: "/status/twitter",
+		 success: function(msg){
+			if(msg.total == msg.fetched){
+				$("#twitter-fetch-progress").html("<img src='/images/check.jpg'>");
+			}
+			text = "<p>Total Users:"+msg.total+"</p><p>Completely Fetched:"+msg.fetched+"</p><p>Total Tweets Fetched: "+msg.tweets+"</p>"
+			$("#twt_status").html(text);
+		 }
+	 });
+}
+
+setInterval ( "fb_status()", 5000);
+
+</script>

@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+			.ddchart-y-axis-wrapper {width:10%; height:90%; position:absolute; top:0%; left:0%;  }
+			.ddchart-y-axis {width:100%; position:absolute; left:0%; text-align:center; overflow:hidden; background-image:none!important; }
+			.ddchart-chart-init {}
+			.ddchart-chart-final {}
+			.ddchart-chart-wrapper {width:90%; height:90%; position:absolute; top:0%; left:10%;  }
+			.ddchart-chart-wrapper-sub {width:100%; height:100%; position:absolute; left:0%; bottom:0%; background-color:#FFFFFF; border-left:2px solid black; border-right:2px solid black; border-top:2px solid black; }
+			.ddchart-chart {position:absolute; bottom:0%; line-height: 0; cursor:pointer; background-image:none!important;}
+			.ddchart-x-axis-wrapper {width:90%; height:10%; position:absolute; top:90%; left:10%; }
+			.ddchart-x-axis-wrapper-sub {width:100%; height:50%; position:absolute; left:0%; top:0%;}
+			.ddchart-x-axis {height:100%; position:absolute; text-align:center; vertical-align:middle; overflow:hidden; background-image:none!important; }
+			.ddchart-x-axis-label {width:100%; height:50%; position:absolute; top:50%; left:0%; text-align:center; overflow:hidden; font-weight:bold; }
+			.dd-chart-context {}
+			.dd-chart-context-drillup {cursor:pointer;}
+			.dd-chart-tooltip {position: absolute; z-index: 3000; padding:5px;}
+			.dd-chart-tooltip h3, .dd-chart-tooltip div { margin: 0; text-align: center; }

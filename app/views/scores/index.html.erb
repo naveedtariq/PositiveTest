@@ -1,0 +1,122 @@
+<div style="font-size:12px;display:none;padding:20px;" title="WHY???" id="ress"> </div>
+<script language="javascript">
+	$(function(){
+
+			var graphByMonth = new Array(
+					[4203,'Jan'],
+					[5015,'Feb'],
+					[5503,'Mar'],
+					[4983,'Apr'],
+					[5352,'May'],
+					[5870,'Jun']	
+				);
+				$("#chart_main_div").jqBarGraph({
+					data: graphByMonth,
+					width: 500,
+					colors: ['#122A47','#1B3E69'],
+					color: '#1A2944',
+					barSpace: 5,
+					title: '<h3>Number of visitors per month<br /><small>simple bar graph</small></h3>'
+				});
+
+		$.ajax({
+			 type: "GET",
+			 url: "/scores/top_facebook",
+			 success: function(msg){
+			 }
+		 });
+
+	});
+</script>
+<div id="chart_main_div"></div>
+                
+
+<script type="text/javascript">
+	var highligh_words = function(data, color){
+		res = '';
+		data.each(function(e){
+				all = e.status.split(" ");
+				console.log(all[e.at-1]);
+				all[e.at-1] = "<span style='color:"+color +";'><b>"+ all[e.at-1] +"</b></span>";
+				res += "- "+(all.join(" "))+"<br />";
+			});
+		return res;
+		
+	}
+	$(function(){
+			$('.why').click(function(){
+				$.ajax({
+					 type: "GET",
+					 url: "/scores/why?rs_id="+$(this).attr('rs_id'),
+					 success: function(msg){
+						ptext = highligh_words(msg.stats.positive, 'green')					
+						ntext = highligh_words(msg.stats.negative, 'red')					
+						txt = "<b>Total Messages : "+msg.messages_count+"</b><br />";
+						txt += "<b>Positive Words Found: "+msg.positive_score+"</b><br />";
+						txt += "<b>Negative Words Found: "+msg.negative_score+"</b><br />";
+						txt += "<h1>Below You can see where +ve(green) and -ve(red) words were found<br /></h1>";
+						txt += ptext + "<br /><br />" + ntext;
+						$("#ress").html(txt);
+						$("#ress").dialog({width:900,height:500, modal:true});
+						
+					 }
+				 });
+			});
+		});	
+</script>
+<div style="font-size:12px;">
+<div style="padding:15px; float:left;" width="50%">
+<table border="1">
+<tr>
+	<th>Name</th><th>Status Count</th><th>Total Score</th><th>+ve Score</th><th>-ve Score</th>
+</tr>
+<% @facebook_results.each do |result| %>
+<tr>
+	<td>
+	<%= Friend.find(result.user_id).name %>
+	</td>
+	<td>
+	<%= result.messages_count %>
+	</td>
+	<td>
+	<%= result.score %><a rs_id = <%= result.id %> class = "why" >Why?</a>
+	</td>
+	<td>
+	<%= result.positive_score %>
+	</td>
+	<td>
+	<%= result.negative_score %>
+	</td>
+<tr>
+		
+<% end %>
+</table>
+</div>
+<div style="padding:15px;float:left;" width="50%">
+<table border="1">
+<tr>
+	<th>Name</th><th>Status Count</th><th>Total Score</th><th>+ve Score</th><th>-ve Score</th>
+</tr>
+<% @twitter_results.each do |result| %>
+<tr>
+	<td>
+	<%= TwitterUser.find(result.user_id).screen_name %>
+	</td>
+	<td>
+	<%= result.messages_count %>
+	</td>
+	<td>
+	<%= result.score %>  <a rs_id = <%= result.id %> class = "why" >Why?</a>
+
+	</td>
+	<td>
+	<%= result.positive_score %> 	</td>
+	<td>
+	<%= result.negative_score %>
+	</td>
+<tr>
+		
+<% end %>
+</table>
+</div>
+</div>

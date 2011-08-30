@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PositiveTest</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "jquery-ui" %>
+  <%= javascript_include_tag "jqbar" %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+<div id="notice" >
+<%= flash[:notice] %>
+</div>
+
+<%= yield %>
+
+</body>
+</html>
