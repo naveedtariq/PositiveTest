@@ -5,7 +5,7 @@ class ScoresController < ApplicationController
 		rs = Result.where(:user_type => 'facebook_friend').order('score DESC').limit(10)
 		arr = []
 		rs.each do |r|
-			arr << [r.score, 'wajo'] 	
+			arr << [r.score, Friend.find(r.user_id).name] 	
 		end
 		render :json => arr.reverse.to_json
 	end
@@ -40,7 +40,7 @@ class ScoresController < ApplicationController
 				wrds = st.message.split
 				wrds.each_with_index do |wrd, index|
 					if (pw_hash.has_key?(wrd))
-						found = {:word => wrd, :at => index+1, :status => st.message}
+						found = {:word => wrd, :at => index+1, :status => (st.message.gsub(/\n/,"")).gsub(/\t/,"")}
 						p_stats << found
 						score = score + 1.0
 						p_score = p_score + 1.0
@@ -55,10 +55,10 @@ class ScoresController < ApplicationController
 			has = {:positive_score => p_score, :negative_score => n_score, :ratio => (score/(f.facebook_statuses.count==0?1:f.facebook_statuses.count)), :messages_count => f.facebook_statuses.count, :score => score, :stats => {:positive => p_stats, :negative => n_stats} }
 			all_stats[f.name] = has
 			result = Result.new(:messages_count => f.facebook_statuses.count, :positive_score => p_score, :negative_score => n_score, :score => score, :stats_json => ActiveSupport::JSON.encode(has), :user_id => f.id, :user_type => 'facebook_friend')
+			puts has.inspect + "-------------"
 			result.save
 		end
-		
-		render :json => all_stats.to_json
+		redirect_to '/scores/'	
 	end
 
 	def twitter
@@ -96,7 +96,7 @@ class ScoresController < ApplicationController
 			result.save
 		end
 		
-		render :json => all_stats.to_json
+		redirect_to '/scores/'	
 	end
 
 end

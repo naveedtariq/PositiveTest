@@ -11,7 +11,8 @@ class TweetFetcher
 		if max_id
 			req_str = req_str + "&max_id=#{max_id}"
 		end
-		tweets = JSON.parse(token.get(req_str).body)
+		puts req_str
+		tweets = JSON.parse(self.get(req_str).body)
 	end
 
 end

@@ -2,22 +2,20 @@
 <script language="javascript">
 	$(function(){
 
-			var graphByMonth = new Array(
-					[4203,'Jan'],
-					[5015,'Feb'],
-					[5503,'Mar'],
-					[4983,'Apr'],
-					[5352,'May'],
-					[5870,'Jun']	
-				);
-				$("#chart_main_div").jqBarGraph({
-					data: graphByMonth,
-					width: 500,
-					colors: ['#122A47','#1B3E69'],
-					color: '#1A2944',
-					barSpace: 5,
-					title: '<h3>Number of visitors per month<br /><small>simple bar graph</small></h3>'
-				});
+				$.ajax({
+					 type: "POST",
+					 url: "/scores/top_facebook",
+					 success: function(msg){
+							$("#chart_main_div").jqBarGraph({
+								data: msg,
+								width: 500,
+								colors: ['#122A47','#1B3E69'],
+								color: '#1A2944',
+								barSpace: 5,
+								title: '<h3>Number of visitors per month<br /><small>simple bar graph</small></h3>'
+							});
+					 }
+				 });
 
 		$.ajax({
 			 type: "GET",
@@ -45,10 +43,12 @@
 	}
 	$(function(){
 			$('.why').click(function(){
+				alert("ok");
 				$.ajax({
-					 type: "GET",
+					 type: "POST",
 					 url: "/scores/why?rs_id="+$(this).attr('rs_id'),
 					 success: function(msg){
+						alert(msg);
 						ptext = highligh_words(msg.stats.positive, 'green')					
 						ntext = highligh_words(msg.stats.negative, 'red')					
 						txt = "<b>Total Messages : "+msg.messages_count+"</b><br />";

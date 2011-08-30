@@ -111,7 +111,7 @@ class TwitterUser < ActiveRecord::Base
 
 
 	def fetch_all_tweets
-		max_id = nil
+		max_id = self.beneficial_id
 		done = false
 		until done
 			tweets = TweetFetcher.fetch_tweets(self.screen_name, max_id)		

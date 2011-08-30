@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110830101916) do
+ActiveRecord::Schema.define(:version => 20110830175425) do
 
   create_table "app_statuses", :force => true do |t|
     t.boolean  "facebook_connected", :default => false
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(:version => 20110830101916) do
     t.integer  "positive_score"
     t.integer  "negative_score"
     t.integer  "score"
-    t.string   "stats_json"
+    t.text     "stats_json",     :limit => 16777215
     t.integer  "messages_count"
     t.datetime "created_at"
     t.datetime "updated_at"
