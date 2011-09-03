@@ -8,16 +8,16 @@ $('table').visualize({type: 'bar',  width: '620px', colors:['#be1e2d','#666699',
 <div id="ok" style="float:left;"> </div>
 <div >
 <table >
-	<caption>Your Top 20 Positive Facebook Friends</caption>
+	<caption>Top 20 Positive Twitter Users</caption>
 	<thead>
 		<tr>
 			<td></td>
-			<th scope="col">Positvitiy on Facebook</th>
+			<th scope="col">Positvitiy on Twitter</th>
 			
 		</tr>
 	</thead>
 	<tbody>
-		<% @top_fb.each do |single| %>
+		<% @top_twt.each do |single| %>
 			<tr>
 				<th scope="row"><%= single[:name] %></th>
 				<td><%= single[:score] %></td>

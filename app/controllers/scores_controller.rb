@@ -2,17 +2,20 @@ class ScoresController < ApplicationController
 
 
 	def top_facebook
-		rs = Result.where(:user_type => 'facebook_friend').order('score DESC').limit(10)
-		@arr = []
+		rs = Result.where(:user_type => 'facebook_friend').order('score DESC').limit(20)
+		@top_fb = []
 		rs.each do |r|
-			arr << [r.score, Friend.find(r.user_id).name] 	
+			@top_fb << {:score => r.score, :name => Friend.find(r.user_id).name}
 		end
-		
-#		render :json => arr.reverse.to_json
 	end
 	
 
 	def top_twitter
+		rs = Result.where(:user_type => 'twitter_user').order('score DESC').limit(20)
+		@top_twt = []
+		rs.each do |r|
+			@top_twt << {:score => r.score, :name => TwitterUser.find(r.user_id).screen_name}
+		end
 	end
 
 	def why

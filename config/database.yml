@@ -10,7 +10,7 @@ development:
   reconnect: false
   database: test_development
   username: root
-  password: danda88
+  password: root 
   host: localhost
 
 # Warning: The database defined as "test" will be erased and

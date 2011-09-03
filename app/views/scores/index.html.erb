@@ -49,7 +49,7 @@
 					 url: "/scores/why?rs_id="+$(this).attr('rs_id'),
 					 success: function(msg){
 						//alert(msg);
-						ptext = highligh_words(msg.stats.positive, 'green')					
+						ptext = highligh_words(msg.stats.positive, '#00AA00')					
 						ntext = highligh_words(msg.stats.negative, 'red')					
 						txt = "<b>Total Messages : "+msg.messages_count+"</b><br />";
 						txt += "<b>Positive Words Found: "+msg.positive_score+"</b><br />";
