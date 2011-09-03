@@ -6,13 +6,14 @@ class TweetFetcher
 
 	def self.fetch_tweets(screen_name, max_id = nil)
 
-		token = TwitterOauth.prepare_access_token('228644622-N6BRXR8aNQFrJBbH5N533VAf2xMgOo5MYInoyiAh','OJuAv5g25jv1zIvtX4RULANmdyX4BS7tUpmcszlSE')
+#		token = TwitterOauth.prepare_access_token('228644622-N6BRXR8aNQFrJBbH5N533VAf2xMgOo5MYInoyiAh','OJuAv5g25jv1zIvtX4RULANmdyX4BS7tUpmcszlSE')
+		token = TwitterOauth.prepare_access_token('55580169-N5in8xqKPQLWMk965at9P7Ha4HlpyI1ZAMshEhhhK','XSBbUlqVBoI4NbLWeCH1zUeDgXxYEObAQyB93Eoh1k')
 		req_str = "/1/statuses/user_timeline.json?screen_name=#{screen_name}&trim_user=true&include_entities=false&count=200&include_rts=1"
 		if max_id
 			req_str = req_str + "&max_id=#{max_id}"
 		end
 		puts req_str
-		tweets = JSON.parse(self.get(req_str).body)
+		tweets = JSON.parse(token.get(req_str).body)
 	end
 
 end

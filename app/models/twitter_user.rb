@@ -100,6 +100,10 @@ class TwitterUser < ActiveRecord::Base
 				end
 				Tweet.from_twitter_json(tweet, self.id)	
 				puts "stored with time"+time.to_s
+				if (tweets.size == 1)
+					ret= true
+					break
+				end
 			end
 			return ret
 		rescue Exception => exc
@@ -116,7 +120,11 @@ class TwitterUser < ActiveRecord::Base
 		until done
 			tweets = TweetFetcher.fetch_tweets(self.screen_name, max_id)		
 			done = process_tweets(tweets)
-			max_id = tweets.last["id_str"]
+			new_max_id = tweets.last["id_str"]
+			if(new_max_id == max_id)
+				break
+			end
+			max_id = new_max_id
 		end
 		self.twt_fetched =  true
 		self.save

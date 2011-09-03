@@ -2,28 +2,28 @@
 <script language="javascript">
 	$(function(){
 
-				$.ajax({
-					 type: "POST",
-					 url: "/scores/top_facebook",
-					 success: function(msg){
-							$("#chart_main_div").jqBarGraph({
-								data: msg,
-								width: 500,
-								colors: ['#122A47','#1B3E69'],
-								color: '#1A2944',
-								barSpace: 5,
-								title: '<h3>Number of visitors per month<br /><small>simple bar graph</small></h3>'
-							});
-					 }
-				 });
-
-		$.ajax({
-			 type: "GET",
-			 url: "/scores/top_facebook",
-			 success: function(msg){
-			 }
-		 });
-
+//				$.ajax({
+//					 type: "POST",
+//					 url: "/scores/top_facebook",
+//					 success: function(msg){
+//							$("#chart_main_div").jqBarGraph({
+//								data: msg,
+//								width: 500,
+//								colors: ['#122A47','#1B3E69'],
+//								color: '#1A2944',
+//								barSpace: 5,
+//								title: '<h3>Number of visitors per month<br /><small>simple bar graph</small></h3>'
+//							});
+//					 }
+//				 });
+//
+//		$.ajax({
+//			 type: "GET",
+//			 url: "/scores/top_facebook",
+//			 success: function(msg){
+//			 }
+//		 });
+//
 	});
 </script>
 <div id="chart_main_div"></div>
@@ -34,7 +34,7 @@
 		res = '';
 		data.each(function(e){
 				all = e.status.split(" ");
-				console.log(all[e.at-1]);
+//				console.log(all[e.at-1]);
 				all[e.at-1] = "<span style='color:"+color +";'><b>"+ all[e.at-1] +"</b></span>";
 				res += "- "+(all.join(" "))+"<br />";
 			});
@@ -43,12 +43,12 @@
 	}
 	$(function(){
 			$('.why').click(function(){
-				alert("ok");
+				//alert("ok");
 				$.ajax({
 					 type: "POST",
 					 url: "/scores/why?rs_id="+$(this).attr('rs_id'),
 					 success: function(msg){
-						alert(msg);
+						//alert(msg);
 						ptext = highligh_words(msg.stats.positive, 'green')					
 						ntext = highligh_words(msg.stats.negative, 'red')					
 						txt = "<b>Total Messages : "+msg.messages_count+"</b><br />";
@@ -79,7 +79,7 @@
 	<%= result.messages_count %>
 	</td>
 	<td>
-	<%= result.score %><a rs_id = <%= result.id %> class = "why" >Why?</a>
+	<%= result.score %> <a rs_id = <%= result.id %> class = "why" >Why?</a>
 	</td>
 	<td>
 	<%= result.positive_score %>

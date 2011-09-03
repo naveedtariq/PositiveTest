@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 	def save_all_friends(friends)
 		friends.each_with_index do |friend, index|
 			if index == 49
-				break
+				#break
 			end
 			frind = Friend.new(:fb_id => friend["id"], :name => friend["name"], :user_id => self.id)
 			frind.save	

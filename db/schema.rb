@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110830175425) do
+ActiveRecord::Schema.define(:version => 20110901050619) do
 
   create_table "app_statuses", :force => true do |t|
     t.boolean  "facebook_connected", :default => false
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20110830175425) do
 
   create_table "friends", :force => true do |t|
     t.string   "name"
-    t.integer  "fb_id"
+    t.string   "fb_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"

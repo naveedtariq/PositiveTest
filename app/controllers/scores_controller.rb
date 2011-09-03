@@ -3,12 +3,14 @@ class ScoresController < ApplicationController
 
 	def top_facebook
 		rs = Result.where(:user_type => 'facebook_friend').order('score DESC').limit(10)
-		arr = []
+		@arr = []
 		rs.each do |r|
 			arr << [r.score, Friend.find(r.user_id).name] 	
 		end
-		render :json => arr.reverse.to_json
+		
+#		render :json => arr.reverse.to_json
 	end
+	
 
 	def top_twitter
 	end
@@ -24,6 +26,7 @@ class ScoresController < ApplicationController
 	end
 
 	def facebook
+		Result.where(:user_type => 'facebook_friend').delete_all
 		pw_hash = YAML.load_file("#{RAILS_ROOT}/config/pw.yml")["pw"]
 		nw_hash = YAML.load_file("#{RAILS_ROOT}/config/nw.yml")["nw"]
 		all_stats = {}
@@ -62,6 +65,7 @@ class ScoresController < ApplicationController
 	end
 
 	def twitter
+		Result.where(:user_type => 'twitter_user').delete_all
 		pw_hash = YAML.load_file("#{RAILS_ROOT}/config/pw.yml")["pw"]
 		nw_hash = YAML.load_file("#{RAILS_ROOT}/config/nw.yml")["nw"]
 		all_stats = {}
