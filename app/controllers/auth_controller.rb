@@ -13,8 +13,7 @@ class AuthController < ApplicationController
 		user_info = JSON.parse(fb_access_token.get('/me').body)
 		user = User.from_facebook_json(user_info, fb_access_token.token);
 		@name = user.name
-		friends = JSON.parse(fb_access_token.get('/me/friends').body)
-		user.save_all_friends(friends["data"])		
+    user.fetch_facebook_friends
 		redirect_to "/pages/home"
 		#user.delay.fetch_facebook_statuses
 	end

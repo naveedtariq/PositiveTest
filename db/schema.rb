@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110901050619) do
+ActiveRecord::Schema.define(:version => 20120506000437) do
 
   create_table "app_statuses", :force => true do |t|
     t.boolean  "facebook_connected", :default => false
@@ -61,7 +62,7 @@ ActiveRecord::Schema.define(:version => 20110901050619) do
     t.integer  "positive_score"
     t.integer  "negative_score"
     t.integer  "score"
-    t.text     "stats_json",     :limit => 16777215
+    t.text     "stats_json",     :limit => 2147483647
     t.integer  "messages_count"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -83,12 +84,13 @@ ActiveRecord::Schema.define(:version => 20110901050619) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "beneficial_id"
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|
     t.string   "name",        :null => false
     t.string   "email",       :null => false
-    t.integer  "facebook_id", :null => false
+    t.string   "facebook_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "fb_token"

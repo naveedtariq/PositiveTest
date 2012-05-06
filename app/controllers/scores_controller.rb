@@ -29,41 +29,6 @@ class ScoresController < ApplicationController
 	end
 
 	def facebook
-		Result.where(:user_type => 'facebook_friend').delete_all
-		pw_hash = YAML.load_file("#{RAILS_ROOT}/config/pw.yml")["pw"]
-		nw_hash = YAML.load_file("#{RAILS_ROOT}/config/nw.yml")["nw"]
-		all_stats = {}
-		allf = Friend.find(:all)
-		scores = {}
-		allf.each do |f|
-			p_stats = []
-			n_stats = []
-			score = 0
-			p_score = 0
-			n_score = 0
-			sts = f.facebook_statuses
-			sts.each do |st|
-				wrds = st.message.split
-				wrds.each_with_index do |wrd, index|
-					if (pw_hash.has_key?(wrd))
-						found = {:word => wrd, :at => index+1, :status => (st.message.gsub(/\n/,"")).gsub(/\t/,"")}
-						p_stats << found
-						score = score + 1.0
-						p_score = p_score + 1.0
-					elsif (nw_hash.has_key?(wrd) )
-						found = {:word => wrd, :at => index+1, :status => st.message}
-						n_stats << found
-						score = score - 1.0
-						n_score = n_score + 1.0
-					end
-				end
-			end
-			has = {:positive_score => p_score, :negative_score => n_score, :ratio => (score/(f.facebook_statuses.count==0?1:f.facebook_statuses.count)), :messages_count => f.facebook_statuses.count, :score => score, :stats => {:positive => p_stats, :negative => n_stats} }
-			all_stats[f.name] = has
-			result = Result.new(:messages_count => f.facebook_statuses.count, :positive_score => p_score, :negative_score => n_score, :score => score, :stats_json => ActiveSupport::JSON.encode(has), :user_id => f.id, :user_type => 'facebook_friend')
-			puts has.inspect + "-------------"
-			result.save
-		end
 		redirect_to '/scores/'	
 	end
 

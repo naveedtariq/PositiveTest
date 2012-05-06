@@ -1,6 +1,7 @@
 class TwitterUser < ActiveRecord::Base
 
 	has_many :tweets
+  belongs_to :user
 
 	def check_for_bandar(tweets)
 		begin

@@ -5,7 +5,11 @@ class Friend < ActiveRecord::Base
 
 	def fetch_facebook_feeds
 		unless self.fb_fetched
-			statuses = 	FbOauth.fb_access_token(self.user.fb_token).get("/#{self.fb_id}/statuses?since=1309478400&until=1312156800").body
+      t_untill = Time.now.to_i
+      since = t_untill - 2592000
+      req_uri = "/#{self.fb_id}/statuses?since=#{since}&until=#{t_untill}"
+      puts req_uri.inspect
+			statuses = 	FbOauth.fb_access_token(self.user.fb_token).get(req_uri).body
 			statuses = JSON.parse(statuses);
 			unless statuses["data"].nil?
 				statuses["data"].each do |status|

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
+gem 'rails', '3.1.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -9,8 +9,11 @@ gem 'sqlite3'
 gem 'mysql'
 gem 'oauth2'
 gem 'oauth'
-gem 'delayed_job' 
+gem 'delayed_job', "2.1.4"
 gem 'httparty'
+gem 'dps-actionwebservice', :git => "https://github.com/livestation/actionwebservice.git", :require => "actionwebservice"
+gem 'soap4r-ruby1.9'
+
 
 # Use unicorn as the web server
 # gem 'unicorn'
